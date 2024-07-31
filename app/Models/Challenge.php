@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Challenge extends Model
 {
     use HasFactory;
+
+    public function Children(){
+        return $this->belongsTo(Children::class);
+    }
+
 }

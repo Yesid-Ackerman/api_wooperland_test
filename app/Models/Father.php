@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Father extends Model
 {
     use HasFactory;
+
+    public function Topics(){
+        return $this->belongsToMany(Topic::class);
+    }
 }
