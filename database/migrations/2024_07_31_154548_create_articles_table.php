@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('type');
             $table->string('cost');
+            //Imagen o Foto de Perfil
             $table->string('avatar')->nullable();
             $table->string('description');
 

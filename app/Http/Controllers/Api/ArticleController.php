@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Article;
 use Illuminate\Http\Request;
 
@@ -9,57 +10,81 @@ class ArticleController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $articles = Article::all();
+        return response()->json($articles);
     }
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'type' => 'required|string|max:255',
+            'cost' => 'required|string|max:255',
+            'avatar' => 'nullable|string|max:255',
+            'description' => 'required|string',
+            'id_store' => 'required|exists:stores,id',
+        ]);
+
+        $article = Article::create($request->all());
+
+        return response()->json($article);
     }
 
     /**
      * Display the specified resource.
+     *
+     * @param  \App\Models\Article  $article
+     * @return \Illuminate\Http\Response
      */
-    public function show(Article $article)
+    public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Article $article)
-    {
-        //
+        $article = Article::findOrFail($id);
+        return response()->json($article);
     }
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Article  $article
+     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Article $article)
     {
-        //
+        $request->validate([
+            'name' => '|string|max:255',
+            'type' => '|string|max:255',
+            'cost' => '|string|max:255',
+            'avatar' => 'nullable|string|max:255',
+            'description' => '|string',
+            'id_store' => '|exists:stores,id',
+        ]);
+
+        $article->update($request->all());
+
+        return response()->json($article);
     }
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Article  $article
+     * @return \Illuminate\Http\Response
      */
     public function destroy(Article $article)
     {
-        //
+        $article->delete();
+        return response()->json($article);
     }
 }

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('id_children')->references('id')->on('childrens');
 
             //ID del articulo
-            $table->foreignId('id_article')->references('id')->on('id_articles');
+            $table->foreignId('id_article')->references('id')->on('articles');
 
             $table->timestamps();
         });
