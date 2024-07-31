@@ -63,12 +63,12 @@ class ArticleController extends Controller
     public function update(Request $request, Article $article)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'type' => 'required|string|max:255',
-            'cost' => 'required|string|max:255',
+            'name' => '|string|max:255',
+            'type' => '|string|max:255',
+            'cost' => '|string|max:255',
             'avatar' => 'nullable|string|max:255',
-            'description' => 'required|string',
-            'id_store' => 'required|exists:stores,id',
+            'description' => '|string',
+            'id_store' => '|exists:stores,id',
         ]);
 
         $article->update($request->all());

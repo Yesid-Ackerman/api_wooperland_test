@@ -1,25 +1,23 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-use App\Http\Controllers\Controller; // Importa la clase Controller
+
+use App\Http\Controllers\Controller;
 use App\Models\Store;
 use Illuminate\Http\Request;
 
 class StoreController extends Controller
 {
-   /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $store=Store::all();
-        //$store = Store::included()->get();
-        //$store=Store::included()->filter();
-        //$store=Store::included()->filter()->sort()->get();
-        //$store=Store::included()->filter()->sort()->getOrPaginate();
-        return response()->json($store);
+        // Obtener todas las tiendas
+        $stores = Store::all();
+        return response()->json($stores);
     }
 
     /**
@@ -30,11 +28,12 @@ class StoreController extends Controller
      */
     public function store(Request $request)
     {
-
+        // Validar los datos del request
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'string|max:255',
         ]);
 
+        // Crear una nueva tienda
         $store = Store::create($request->all());
 
         return response()->json($store);
@@ -43,14 +42,13 @@ class StoreController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Store  $store
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id) //si se pasa $id se utiliza la comentada
-    {  
-       // $store = Store::findOrFail($id);
-        // $store = Store::included();
-        $store = Store::included()->findOrFail($id);
+    public function show($id)
+    {
+        // Obtener una tienda por ID
+        $store = Store::findOrFail($id);
         return response()->json($store);
     }
 
@@ -63,12 +61,15 @@ class StoreController extends Controller
      */
     public function update(Request $request, Store $store)
     {
+        // Validar los datos del request
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'string|max:255',
         ]);
 
-        $store->update($request->all());
+        // Actualizar los datos de la tienda
+        $store->update($request->only(['name']));
 
+        // Retornar la respuesta en formato JSON
         return response()->json($store);
     }
 
@@ -80,6 +81,7 @@ class StoreController extends Controller
      */
     public function destroy(Store $store)
     {
+        // Eliminar la tienda
         $store->delete();
         return response()->json($store);
     }
