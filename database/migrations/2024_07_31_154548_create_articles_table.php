@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('type');
+            $table->string('cost');
+            $table->string('avatar')->nullable();
+            $table->string('description');
+
+            //ID de la tienda
+            $table->foreignId('id_store')->references('id')->on('stores');
+
             $table->timestamps();
         });
     }
