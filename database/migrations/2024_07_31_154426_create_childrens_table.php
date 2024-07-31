@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('childrens', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 30);
+            $table->string('lastname', 30);
+            $table->integer('age', 30);
+            $table->string('nickname', 30);
+            $table->string('relation', 30);
+            $table->string('avatar');
+            $table->time('time_use');
+
             $table->timestamps();
         });
     }
