@@ -7,12 +7,13 @@ use Illuminate\Http\Request;
 
 class ChildrenController extends Controller
 {
-    /**
+      /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $childrens=Children::all();
+        return response()->json($childrens);
     }
 
     /**
@@ -28,15 +29,24 @@ class ChildrenController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:255',
+            'slug' => 'required|max:255|unique:categories',
+
+        ]);
+
+        $children = Children::create($request->all());
+
+        return response()->json($children);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Children $children)
+    public function show($id)
     {
-        //
+        $children = Children::included()->findOrFail($id);
+        return response()->json($children);
     }
 
     /**
@@ -52,7 +62,15 @@ class ChildrenController extends Controller
      */
     public function update(Request $request, Children $children)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:255',
+            'slug' => 'required|max:255|unique:categories,slug,' . $children->id,
+
+        ]);
+
+        $children->update($request->all());
+
+        return response()->json($children);
     }
 
     /**
@@ -60,6 +78,7 @@ class ChildrenController extends Controller
      */
     public function destroy(Children $children)
     {
-        //
+        $children->delete();
+        return response()->json($children);
     }
 }

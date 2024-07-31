@@ -10,6 +10,15 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
+
+    public function childrens(){
+        return $this->hasMany('App/Models/Children');
+    }
+
+    public function reports(){
+        return $this->hasMany('App/Models/Report');
+    }
+
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
