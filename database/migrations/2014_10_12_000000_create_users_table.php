@@ -21,7 +21,6 @@ return new class extends Migration
 
             $table->string('lastname',45);
             $table->integer('age',45);
-            $table->string('email',60);
             $table->string('PIN',4);
             $table->timestamps();
         });
