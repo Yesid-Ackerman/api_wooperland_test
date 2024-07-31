@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Store extends Model
 {
-    use HasFactory;
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'location'];
     protected $table = 'stores';
 
-    public function article(){
-        return $this->belongsTo(Article::class);
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
     }
 }
