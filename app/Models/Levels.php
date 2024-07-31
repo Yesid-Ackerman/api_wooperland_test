@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Levels extends Model
 {
     use HasFactory;
+
+    public function Achievements(){
+        return $this->hasMany('App\Models\Achievement');
+    }
 }

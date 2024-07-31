@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class ChildrenImage extends Model
 {
     use HasFactory;
+
+    public function Exchange (){
+        return $this->hasMany('App\Models\Exchange');
+    }
 }

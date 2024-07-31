@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('children_images', function (Blueprint $table) {
             $table->id();
+            $table->string('Imagen');
+            $table->foreignId('exchange_id')->references('id')->on('exchanges')->onDelete('cascade');
             $table->timestamps();
         });
     }
