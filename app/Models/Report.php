@@ -16,4 +16,17 @@ class Report extends Model
     public function level(){
         return $this->belongsTo('App/Models/Levels');
     }
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'grhapic',
+        'score-level',
+        'level-more-use',
+        'level_id',
+        'user_id',
+    ];
 }

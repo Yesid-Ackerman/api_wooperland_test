@@ -31,7 +31,6 @@ class ChildrenController extends Controller
     {
         $request->validate([
             'name' => 'required|max:255',
-            'slug' => 'required|max:255|unique:categories',
 
         ]);
 
@@ -63,8 +62,7 @@ class ChildrenController extends Controller
     public function update(Request $request, Children $children)
     {
         $request->validate([
-            'name' => 'required|max:255',
-            'slug' => 'required|max:255|unique:categories,slug,' . $children->id,
+            'name' => 'required|max:255' . $children->id,
 
         ]);
 

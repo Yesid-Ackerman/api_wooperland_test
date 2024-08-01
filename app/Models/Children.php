@@ -13,4 +13,19 @@ class Children extends Model
     public function user(){
         return $this->belongsTo('App/Models/User');
     }
+
+  /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'nickname',
+        'age',
+        'avatar',
+        'time_use',
+        'father_id',
+    ];
+
 }
