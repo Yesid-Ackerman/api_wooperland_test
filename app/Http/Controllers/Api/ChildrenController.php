@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Children;
 use Illuminate\Http\Request;
@@ -30,8 +32,11 @@ class ChildrenController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|max:255',
-
+            'name' => 'required|max:255', 
+            'lastname' => 'required|max:255',
+            'age' => 'required|max:3',
+            'nickname' => 'required|max:80',
+            'user_id' => 'required',
         ]);
 
         $children = Children::create($request->all());
@@ -44,7 +49,7 @@ class ChildrenController extends Controller
      */
     public function show($id)
     {
-        $children = Children::included()->findOrFail($id);
+        $children = Children::findOrFail($id);
         return response()->json($children);
     }
 
@@ -62,7 +67,11 @@ class ChildrenController extends Controller
     public function update(Request $request, Children $children)
     {
         $request->validate([
-            'name' => 'required|max:255' . $children->id,
+            'name' => 'required|max:255', 
+            'lastname' => 'required|max:255',
+            'age' => 'required|max:3',
+            'nickname' => 'required|max:80',
+            'user_id' => 'required',
 
         ]);
 

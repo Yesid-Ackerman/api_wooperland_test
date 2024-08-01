@@ -23,9 +23,6 @@ class Report extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'grhapic',
-        'score-level',
-        'level-more-use',
         'level_id',
         'user_id',
     ];

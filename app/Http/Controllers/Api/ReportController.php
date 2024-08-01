@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Report;
 use Illuminate\Http\Request;
@@ -32,7 +34,6 @@ class ReportController extends Controller
         $request->validate([
             'level_id' => 'required',
             'user_id' => 'required',
-
         ]);
 
         $report = Report::create($request->all());
@@ -45,7 +46,8 @@ class ReportController extends Controller
      */
     public function show($id)
     {
-        $report = Report::included()->findOrFail($id);
+        //$report = Report::included()->findOrFail($id);
+        $report = Report::findOrFail($id);
         return response()->json($report);
     }
 
@@ -63,7 +65,7 @@ class ReportController extends Controller
     public function update(Request $request, Report $report)
     {
         $request->validate([
-            'level_id' => 'required'. $report->id,
+            'level_id' => 'required',
             'user_id' => 'required', 
 
         ]);

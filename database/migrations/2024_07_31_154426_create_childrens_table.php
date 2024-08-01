@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('lastname');
             $table->string('age');
             $table->string('nickname');
-            $table->string('relation');
-            $table->string('avatar');
-            $table->string('time_use');
+            $table->string('relation')->nullable();
+            $table->string('avatar')->nullable();
+            $table->string('time_use')->nullable();
 
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');

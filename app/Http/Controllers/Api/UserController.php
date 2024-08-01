@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -30,8 +32,10 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|max:255',
-
+            'name' => 'required|max:100',
+            'email' => 'required|max:200',
+            'password' => 'required|min:8',
+            
         ]);
 
         $user = user::create($request->all());
@@ -44,7 +48,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::included()->findOrFail($id);
+        $user = User::findOrFail($id);
+
+        // Retorna el usuario en formato JSON
         return response()->json($user);
     }
 
@@ -62,8 +68,9 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $request->validate([
-            'name' => 'required|max:255' . $user->id,
-
+            'name' => 'required|max:255' ,
+            'email' => 'required|max:200',
+            'password' => 'required|min:8',
         ]);
 
         $user->update($request->all());
