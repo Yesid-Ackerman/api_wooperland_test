@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\Controllers\Api;
-namespace App\Http\Controllers;
+use App\Http\Controllers\Controller;
 use App\Models\ChildrenImage;
 use Illuminate\Http\Request;
 
@@ -19,7 +19,7 @@ class ChildrenImageController extends Controller
    public function store(Request $request){
        $request->validate([
            'Imagen' => 'required|string|max:30',
-           'exchanges_id' => 'required|exists:exchanges,id',
+           'exchange_id' => 'required|exists:exchanges,id',
        ]);
 
        $childrenimage = ChildrenImage::create($request->all());
@@ -41,6 +41,7 @@ class ChildrenImageController extends Controller
    public function update(Request $request, ChildrenImage $childrenimage){
        $request->validate([
            'Imagen' => 'required|string|max:30',
+           'exchange_id' => 'required|exists:exchanges,id',
        ]);
 
        $childrenimage->update($request->all());

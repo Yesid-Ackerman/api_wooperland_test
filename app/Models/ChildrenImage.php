@@ -9,7 +9,7 @@ class ChildrenImage extends Model
 {
     use HasFactory;
     //CAMPO QUE ENTRAN EN 'ASIGNACION MASIVA'
-    protected $fillable =['Imagen', 'exchanges_id'];
+    protected $fillable =['Imagen', 'exchange_id'];
 
 
 

@@ -1,7 +1,7 @@
 <?php
 use App\Http\Controllers\Api\TopicController;
 use App\Http\Controllers\Api\AchievementController;
-use App\Http\Controllers\ChildrenImageController;
+use App\Http\Controllers\Api\ChildrenImageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,7 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/', function () {
     return view('welcome');
 });
-
+    
 //CRUD_TEMAS (HAIVER)
     Route::prefix('topic')->group(function () {
     Route::get('/index',[TopicController::class, 'index']);
