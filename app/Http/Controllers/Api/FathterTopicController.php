@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Api;
+use App\Http\Controllers\Controller;
 use App\Models\FathterTopic;
 use Illuminate\Http\Request;
 
@@ -12,15 +12,8 @@ class FathterTopicController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $fathertopic = FathterTopic::all();
+        return response()->json([$fathertopic]);
     }
 
     /**
@@ -28,38 +21,43 @@ class FathterTopicController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'topic_id' => 'required|exists:topics,id',
+            'father_id' => 'required|exists:fathers,id',
+        ]);
+
+        $fathertopic = FathterTopic::create($request->all());
+        return response()->json([$fathertopic]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(FathterTopic $fathterTopic)
+    public function show($id)
     {
-        //
+        $fathertopic = FathterTopic::findOrFail($id);
+        return response()->json(['message'=>"el registro se mosntro exitosamente", $fathertopic]);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(FathterTopic $fathterTopic)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, FathterTopic $fathterTopic)
+    public function update(Request $request, FathterTopic $fathertopic)
     {
-        //
+        $request->validate([
+            'topic_id' => 'required|exists:topics,id',
+            'father_id' => 'required|exists:fathers,id',
+        ]);
+
+        $fathertopic -> update($request->all());
+        return response()->json($fathertopic);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(FathterTopic $fathterTopic)
+    public function destroy(FathterTopic $fathertopic)
     {
-        //
+     $fathertopic->delete();
+        return response()->json(['message'=>"Registro Elimiinado Exitosamente", $fathertopic]);
     }
 }

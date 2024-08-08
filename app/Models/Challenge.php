@@ -13,4 +13,6 @@ class Challenge extends Model
         return $this->belongsTo(Children::class);
     }
 
+    protected $fillable  = ['name','decription','activity','prize','nivel','children_id'];
+
 }
