@@ -73,7 +73,7 @@ class ArticleController extends Controller
 
         $article->update($request->all());
 
-        return response()->json($article);
+        return response()->json('Actualizado Correctamente');
     }
 
     /**
@@ -85,6 +85,6 @@ class ArticleController extends Controller
     public function destroy(Article $article)
     {
         $article->delete();
-        return response()->json($article);
+        return response()->json('Eliminado Correctamente');
     }
 }
