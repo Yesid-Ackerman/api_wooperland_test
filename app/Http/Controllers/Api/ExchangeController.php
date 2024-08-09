@@ -79,6 +79,6 @@ class ExchangeController extends Controller
     public function destroy(Exchange $exchange)
     {
         $exchange->delete();
-        return response()->json($exchange);
+        return response()->json('Eliminado Correctamente');
     }
 }

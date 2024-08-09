@@ -83,6 +83,6 @@ class StoreController extends Controller
     {
         // Eliminar la tienda
         $store->delete();
-        return response()->json($store);
+        return response()->json('Eliminado Correctamente');
     }
 }

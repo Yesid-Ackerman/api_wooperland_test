@@ -27,7 +27,7 @@ Route::prefix('stores')->group(function () {
     Route::post('/create', [StoreController::class, 'store']);
     Route::get('/show/{id}', [StoreController::class, 'show']);
     Route::put('/update/{store}', [StoreController::class, 'update']);
-    Route::delete('{store}', [StoreController::class, 'destroy']);
+    Route::delete('/delete/{store}', [StoreController::class, 'destroy']);
 });
 
 // Rutas para ArticleController
@@ -36,7 +36,7 @@ Route::prefix('articles')->group(function () {
     Route::post('/create', [ArticleController::class, 'store']);
     Route::get('/show/{id}', [ArticleController::class, 'show']);
     Route::put('/update/{article}', [ArticleController::class, 'update']);
-    Route::delete('{article}', [ArticleController::class, 'destroy']);
+    Route::delete('/delete/{article}', [ArticleController::class, 'destroy']);
 });
 
 // Rutas para ExchangeController
@@ -45,5 +45,5 @@ Route::prefix('exchanges')->group(function () {
     Route::post('/create', [ExchangeController::class, 'store']);
     Route::get('/show/{id}', [ExchangeController::class, 'show']);
     Route::put('/update/{exchange}', [ExchangeController::class, 'update']);
-    Route::delete('{exchange}', [ExchangeController::class, 'destroy']);
+    Route::delete('/delete/{exchange}', [ExchangeController::class, 'destroy']);
 });
