@@ -25,12 +25,12 @@ class ChallengeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:30',
-            'description' => 'required|string|max:100',
-            'activity' => 'required|string|max:50',
-            'prize' => 'required|string|max:100',
-            'nivel' => 'required|string|max:3',
-            'children_id' =>'required|exists:childrens,id',
+            'name' => '|string|max:30',
+            'decription' => '|string|max:100',
+            'activity' => '|string|max:50',
+            'prize' => '|string|max:100',
+            'nivel' => '|string|max:3',
+            'children_id' =>'|exists:childrens,id',
         ]);
         $challenge = Challenge::create($request->all());
         return response()->json([$challenge]);
@@ -54,14 +54,14 @@ class ChallengeController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:30',
-            'description' => 'required|string|max:200',
+            'decription' => 'required|string|max:200',
             'activity' => 'required|string|max:50',
             'prize' => 'required|string|max:100',
             'nivel' => 'required|string|max:3',
             'children_id' =>'required|exists:childrens,id',
         ]);
-        $challenge -> Challenge::update($request->all());
-        return response()->json([$challenge]);
+        $challenge ->update($request->all());
+        return response()->json(['Actualizado']);
     }
 
     /**
@@ -70,6 +70,6 @@ class ChallengeController extends Controller
     public function destroy(Challenge $challenge)
     {
         $challenge ->delete();
-        return response()->json([$challenge]);
+        return response()->json(['Eliminado']);
     }
 }

@@ -45,10 +45,10 @@ class FathterTopicController extends Controller
     {
         $request->validate([
             'topic_id' => 'required|exists:topics,id',
-            'father_id' => 'required|exists:fathers,id'.$fathertopic ->id,
+            'father_id' => 'required|exists:fathers,id',
         ]);
 
-        $fathertopic -> update($request->all());
+        $fathertopic ->update($request->all());
         return response()->json(['message'=>"el registro se actualizo exitosamente",$fathertopic ]);
     }
 

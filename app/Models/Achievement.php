@@ -9,7 +9,7 @@ class Achievement extends Model
 {
     use HasFactory;
     public function level (){
-        return $this->belongsTo(Levels::class);
+        return $this->belongsTo(Level::class);
     }
 
 }
