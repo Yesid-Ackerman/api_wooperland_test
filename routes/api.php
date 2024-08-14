@@ -1,7 +1,8 @@
 <?php
-use App\Http\Controllers\Api\LevelsController;
+
 use App\Http\Controllers\Api\FathterTopicController;
 use App\Http\Controllers\Api\ChallengeController;
+use App\Http\Controllers\Api\LevelController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,11 +27,11 @@ Route::get('/prueba', function (){
 });
 
 Route::prefix('levels')->group(function (){
-Route::get('/index',[LevelsController::class, 'index']);
-Route::post('/store',[LevelsController::class, 'store']);
-Route::get('/show/{id}',[LevelsController::class,'show']);
-Route::put('/update/{levels}',[LevelsController::class,'update']);
-Route::delete('/destroy/{levels}',[LevelsController::class,'destroy']);
+Route::get('/index',[LevelController::class, 'index']);
+Route::post('/store',[LevelController::class, 'store']);
+Route::get('/show/{id}',[LevelController::class,'show']);
+Route::put('/update/{levels}',[LevelController::class,'update']);
+Route::delete('/destroy/{levels}',[LevelController::class,'destroy']);
 });
 
 Route::prefix('fathertopics')->group(function (){

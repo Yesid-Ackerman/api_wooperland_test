@@ -36,7 +36,7 @@ class FathterTopicController extends Controller
     public function show($id)
     {
         $fathertopic = FathterTopic::findOrFail($id);
-        return response()->json(['message'=>"el registro se mosntro exitosamente", $fathertopic]);
+        return response()->json(['message'=>"el registro se mostro exitosamente", $fathertopic]);
     }
     /**
      * Update the specified resource in storage.
@@ -45,11 +45,11 @@ class FathterTopicController extends Controller
     {
         $request->validate([
             'topic_id' => 'required|exists:topics,id',
-            'father_id' => 'required|exists:fathers,id',
+            'father_id' => 'required|exists:fathers,id'.$fathertopic ->id,
         ]);
 
         $fathertopic -> update($request->all());
-        return response()->json($fathertopic);
+        return response()->json(['message'=>"el registro se actualizo exitosamente",$fathertopic ]);
     }
 
     /**

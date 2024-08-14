@@ -26,7 +26,7 @@ class ChallengeController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:30',
-            'description' => 'required|string|max:200',
+            'description' => 'required|string|max:100',
             'activity' => 'required|string|max:50',
             'prize' => 'required|string|max:100',
             'nivel' => 'required|string|max:3',

@@ -1,19 +1,20 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+
 use App\Http\Controllers\Controller;
-use App\Models\Levels;
+use App\Models\Level;
 use Illuminate\Http\Request;
 
-class LevelsController extends Controller
+class LevelController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $levels = Levels::all();
-        return response()->json($levels);
+        $level = Level::all();
+        return response()->json($level);
     }
 
     /**
@@ -22,7 +23,7 @@ class LevelsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:30',
+            'name' => '|max:30',
             'description_level' => 'required|string|max:200',
             'prize_level' => 'required|string|max:50',
             'voice_option' => 'required|string|max:100',
@@ -31,8 +32,8 @@ class LevelsController extends Controller
             'score_level' => 'required|integer|max:4',
             'topic_id' => 'required|exists:topics,id',
         ]);
-        $levels = Levels::create($request->all());
-        return response()->json($levels);
+        $level = Level::create($request->all());
+        return response()->json($level);
     }
 
     /**
@@ -40,16 +41,16 @@ class LevelsController extends Controller
      */
     public function show($id)
     {
-        $levels = Levels::findOrFail($id);
-        return response()->json($levels);
+        $level = Level::findOrFail($id);
+        return response()->json($level);
     }
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Levels $levels)
+    public function update(Request $request, Level $level)
     {
         $request->validate([
-            'name' => 'required|string|max:30',
+            'name' => '|max:30',
             'description_level' => 'required|string|max:200',
             'prize_level' => 'required|string|max:50',
             'voice_option' => 'required|string|max:100',
@@ -58,16 +59,16 @@ class LevelsController extends Controller
             'score_level' => 'required|integer|max:4',
             'topic_id' => 'required|exists:topics,id',
         ]);
-        $levels -> Levels::update($request->all());
-        return response()->json($levels);
+        $level -> Level::update($request->all());
+        return response()->json($level);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Levels $levels)
+    public function destroy(Level $level)
     {
-        $levels ->delete();
-        return response()->json($levels);
+        $level ->delete();
+        return response()->json("eliminado");
     }
 }
