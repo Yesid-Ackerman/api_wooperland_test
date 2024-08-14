@@ -45,15 +45,15 @@ class ExchangeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-{
-    $exchange = Exchange::find($id);
+    {
+        $exchange = Exchange::find($id);
 
-    if (!$exchange) {
-        return response()->json(['message' => 'No hay tal registro'], 404);
+        if (!$exchange) {
+            return response()->json(['message' => 'No hay tal registro'], 404);
+        }
+
+        return response()->json($exchange);
     }
-
-    return response()->json($exchange);
-}
 
 
     /**

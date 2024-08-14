@@ -87,15 +87,15 @@ class ArticleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-{
-    $article = Article::find($id);
+    {
+        $article = Article::find($id);
 
-    if (!$article) {
-        return response()->json(['message' => 'No existe ese registro'], 404);
+        if (!$article) {
+            return response()->json(['message' => 'No existe ese registro'], 404);
+        }
+
+        $article->delete();
+        return response()->json(['message' => 'Eliminado Correctamente']);
     }
-
-    $article->delete();
-    return response()->json(['message' => 'Eliminado Correctamente']);
-}
 
 }
