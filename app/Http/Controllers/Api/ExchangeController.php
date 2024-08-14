@@ -35,7 +35,7 @@ class ExchangeController extends Controller
 
         $exchange = Exchange::create($request->all());
 
-        return response()->json($exchange);
+        return response()->json('Registrado con exito');
     }
 
     /**
@@ -45,10 +45,16 @@ class ExchangeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        $exchange = Exchange::findOrFail($id);
-        return response()->json($exchange);
+{
+    $exchange = Exchange::find($id);
+
+    if (!$exchange) {
+        return response()->json(['message' => 'No hay tal registro'], 404);
     }
+
+    return response()->json($exchange);
+}
+
 
     /**
      * Update the specified resource in storage.
@@ -67,7 +73,7 @@ class ExchangeController extends Controller
 
         $exchange->update($request->all());
 
-        return response()->json($exchange);
+        return response()->json('Actualizado con exito');
     }
 
     /**
@@ -76,9 +82,16 @@ class ExchangeController extends Controller
      * @param  \App\Models\Exchange  $exchange
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Exchange $exchange)
+    public function destroy($id)
     {
+        $exchange = Exchange::find($id);
+    
+        if (!$exchange) {
+            return response()->json(['message' => 'No hay tal registro'], 404);
+        }
+    
         $exchange->delete();
-        return response()->json('Eliminado Correctamente');
+        return response()->json(['message' => 'Eliminado Correctamente']);
     }
+    
 }

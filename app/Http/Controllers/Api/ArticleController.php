@@ -48,9 +48,15 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        $article = Article::findOrFail($id);
+        $article = Article::find($id);
+    
+        if (!$article) {
+            return response()->json(['message' => 'No existe ese registro'], 404);
+        }
+    
         return response()->json($article);
     }
+    
 
     /**
      * Update the specified resource in storage.
@@ -80,9 +86,16 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Article $article)
-    {
-        $article->delete();
-        return response()->json('Eliminado Correctamente');
+    public function destroy($id)
+{
+    $article = Article::find($id);
+
+    if (!$article) {
+        return response()->json(['message' => 'No existe ese registro'], 404);
     }
+
+    $article->delete();
+    return response()->json(['message' => 'Eliminado Correctamente']);
+}
+
 }
