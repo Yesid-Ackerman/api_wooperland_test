@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Api\ArticleController;
 use App\Http\Controllers\Api\ExchangeController;
-use App\Http\Controllers\Api\StoreController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,14 +20,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Rutas para StoreController
-Route::prefix('stores')->group(function () {
-    Route::get('/list', [StoreController::class, 'index']);
-    Route::post('/create', [StoreController::class, 'store']);
-    Route::get('/show/{id}', [StoreController::class, 'show']);
-    Route::put('/update/{store}', [StoreController::class, 'update']);
-    Route::delete('/delete/{store}', [StoreController::class, 'destroy']);
-});
+// // Rutas para StoreController
+// Route::prefix('stores')->group(function () {
+//     Route::get('/list', [StoreController::class, 'index']);
+//     Route::post('/create', [StoreController::class, 'store']);
+//     Route::get('/show/{id}', [StoreController::class, 'show']);
+//     Route::put('/update/{store}', [StoreController::class, 'update']);
+//     Route::delete('/delete/{store}', [StoreController::class, 'destroy']);
+// });
 
 // Rutas para ArticleController
 Route::prefix('articles')->group(function () {

@@ -33,7 +33,6 @@ class ArticleController extends Controller
             'cost' => 'required|string|max:255',
             'avatar' => 'nullable|string|max:255',
             'description' => 'required|string',
-            'id_store' => 'required|exists:stores,id',
         ]);
 
         $article = Article::create($request->all());
@@ -68,7 +67,6 @@ class ArticleController extends Controller
             'cost' => '|string|max:255',
             'avatar' => 'nullable|string|max:255',
             'description' => '|string',
-            'id_store' => '|exists:stores,id',
         ]);
 
         $article->update($request->all());
