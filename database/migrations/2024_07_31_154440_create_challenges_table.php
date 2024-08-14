@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('challenges', function (Blueprint $table) {
             $table->id();
             $table->string('name',50);  //nombre del reto
-            $table->string('decription',100); //decripcion del reto semanal
+            $table->string('description',100); //decripcion del reto semanal
             $table->string('activity',50);  //actividad del reto semanal
             $table->string('prize');  //premio del reto semanal
             $table->string('nivel');  //nivel del reto

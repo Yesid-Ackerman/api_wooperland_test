@@ -42,7 +42,7 @@ class LevelController extends Controller
     public function show($id)
     {
         $level = Level::findOrFail($id);
-        return response()->json($level);
+        return response()->json(['message'=>"el registro se mostro exitosamente", $level]);
     }
     /**
      * Update the specified resource in storage.
@@ -60,7 +60,7 @@ class LevelController extends Controller
             'topic_id' => '|exists:topics,id',
         ]);
         $level->update($request->all());
-        return response()->json('Actualizado correctmente');
+        return response()->json(['message'=>"el registro se actualizo exitosamente", $level]);
     }
 
     /**
@@ -69,7 +69,7 @@ class LevelController extends Controller
     public function destroy(Level $level)
     {
         $level->delete();
-        return response()->json("eliminado");
+        return response()->json(['message'=>"el registro se elimino exitosamente", $level]);
     }
 }
 
