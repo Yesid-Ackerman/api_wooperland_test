@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\Api\AchievementController;
 use App\Http\Controllers\Api\ArticleController;
+use App\Http\Controllers\Api\ChildrenImageController;
 use App\Http\Controllers\Api\ExchangeController;
 use App\Http\Controllers\Api\StoreController;
+use App\Http\Controllers\Api\TopicController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,29 +24,29 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Rutas para StoreController
-Route::prefix('stores')->group(function () {
-    Route::get('/list', [StoreController::class, 'index']);
-    Route::post('/create', [StoreController::class, 'store']);
-    Route::get('/show/{id}', [StoreController::class, 'show']);
-    Route::put('/update/{store}', [StoreController::class, 'update']);
-    Route::delete('/delete/{store}', [StoreController::class, 'destroy']);
+//CRUD_TEMAS (HAIVER)
+Route::prefix('topic')->group(function () {
+    Route::get('/index',[TopicController::class, 'index']);
+    Route::post('/store',[TopicController::class, 'store']);
+    Route::get('/show/{id}',[TopicController::class,'show']);
+    Route::put('/update/{topic}',[TopicController::class,'update']);
+    Route::delete('/destroy/{topic}',[TopicController::class,'destroy']);
 });
 
-// Rutas para ArticleController
-Route::prefix('articles')->group(function () {
-    Route::get('/list', [ArticleController::class, 'index']);
-    Route::post('/create', [ArticleController::class, 'store']);
-    Route::get('/show/{id}', [ArticleController::class, 'show']);
-    Route::put('/update/{article}', [ArticleController::class, 'update']);
-    Route::delete('/delete/{article}', [ArticleController::class, 'destroy']);
+//CRUD_LOGROS (HAIVER)
+    Route::prefix('achievement')->group(function () {
+    Route::get('/index',[AchievementController::class, 'index']);
+    Route::post('/store',[AchievementController::class, 'store']);
+    Route::get('/show/{id}',[AchievementController::class,'show']);
+    Route::put('/update/{achievement}',[AchievementController::class,'update']);
+    Route::delete('/destroy/{achievement}',[AchievementController::class,'destroy']);
 });
 
-// Rutas para ExchangeController
-Route::prefix('exchanges')->group(function () {
-    Route::get('/list', [ExchangeController::class, 'index']);
-    Route::post('/create', [ExchangeController::class, 'store']);
-    Route::get('/show/{id}', [ExchangeController::class, 'show']);
-    Route::put('/update/{exchange}', [ExchangeController::class, 'update']);
-    Route::delete('/delete/{exchange}', [ExchangeController::class, 'destroy']);
+//CRUD_IMAGENES-NIÑOS (HAIVER)
+    Route::prefix('childrenimage')->group(function () {
+    Route::get('/index',[ChildrenImageController::class, 'index']);
+    Route::post('/store',[ChildrenImageController::class, 'store']);
+    Route::get('/show/{id}',[ChildrenImageController::class,'show']);
+    Route::put('/update/{childrenimage}',[ChildrenImageController::class,'update']);
+    Route::delete('/destroy/{childrenimage}',[ChildrenImageController::class,'destroy']);
 });

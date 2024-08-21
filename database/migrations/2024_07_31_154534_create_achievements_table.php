@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('achievements', function (Blueprint $table) {
             $table->id();
+            $table->string('Nombre');
+            $table->string('Descripcion');
+            $table->string('Premio');
+            $table->foreignId('level_id')->references('id')->on('levels')->onDelete('cascade');
+            $table->foreignId('children_id')->references('id')->on('childrens')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class ChildrenImage extends Model
 {
     use HasFactory;
+    //CAMPO QUE ENTRAN EN 'ASIGNACION MASIVA'
+    protected $fillable =['Imagen', 'exchange_id'];
+
+
+
+    public function Exchange (){
+        return $this->hasMany('App\Models\Exchange');
+    }
 }
