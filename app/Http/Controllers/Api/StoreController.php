@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -15,8 +14,10 @@ class StoreController extends Controller
      */
     public function index()
     {
-        // Obtener todas las tiendas
-        $stores = Store::all();
+        $stores = Store::included() // Incluye relaciones según el parámetro 'included'
+                       ->filter()   // Aplica filtros según el parámetro 'filter'
+                       ->sort()     // Ordena los resultados según el parámetro 'sort'
+                       ->getOrPaginate(); // Pagina los resultados si se proporciona el parámetro 'perPage'
         return response()->json($stores);
     }
 
@@ -28,15 +29,13 @@ class StoreController extends Controller
      */
     public function store(Request $request)
     {
-        // Validar los datos del request
         $request->validate([
-            'name' => 'string|max:255',
+            'name' => 'required|string|max:255',
         ]);
 
-        // Crear una nueva tienda
         $store = Store::create($request->all());
 
-        return response()->json($store);
+        return response()->json($store, 201); // Retorna un código 201 (Creado)
     }
 
     /**
@@ -47,8 +46,7 @@ class StoreController extends Controller
      */
     public function show($id)
     {
-        // Obtener una tienda por ID
-        $store = Store::findOrFail($id);
+        $store = Store::included()->findOrFail($id); // Incluye relaciones según el parámetro 'included'
         return response()->json($store);
     }
 
@@ -61,15 +59,12 @@ class StoreController extends Controller
      */
     public function update(Request $request, Store $store)
     {
-        // Validar los datos del request
         $request->validate([
-            'name' => 'string|max:255',
+            'name' => 'nullable|string|max:255',
         ]);
 
-        // Actualizar los datos de la tienda
         $store->update($request->only(['name']));
 
-        // Retornar la respuesta en formato JSON
         return response()->json($store);
     }
 
@@ -81,8 +76,7 @@ class StoreController extends Controller
      */
     public function destroy(Store $store)
     {
-        // Eliminar la tienda
         $store->delete();
-        return response()->json('Eliminado Correctamente');
+        return response()->json(['message' => 'Eliminado Correctamente']);
     }
 }

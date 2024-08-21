@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -15,7 +14,10 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::all();
+        $articles = Article::included() // Incluye relaciones según el parámetro 'included'
+                            ->filter()   // Aplica filtros según el parámetro 'filter'
+                            ->sort()     // Ordena los resultados según el parámetro 'sort'
+                            ->getOrPaginate(); // Pagina los resultados si se proporciona el parámetro 'perPage'
         return response()->json($articles);
     }
 
@@ -33,11 +35,12 @@ class ArticleController extends Controller
             'cost' => 'required|string|max:255',
             'avatar' => 'nullable|string|max:255',
             'description' => 'required|string',
+            'id_store' => 'required|exists:stores,id' // Validación para el campo id_store
         ]);
 
         $article = Article::create($request->all());
 
-        return response()->json($article);
+        return response()->json($article, 201);
     }
 
     /**
@@ -48,15 +51,10 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        $article = Article::find($id);
-    
-        if (!$article) {
-            return response()->json(['message' => 'No existe ese registro'], 404);
-        }
-    
+        $article = Article::included()->findOrFail($id); // Incluye relaciones según el parámetro 'included'
+
         return response()->json($article);
     }
-    
 
     /**
      * Update the specified resource in storage.
@@ -68,16 +66,17 @@ class ArticleController extends Controller
     public function update(Request $request, Article $article)
     {
         $request->validate([
-            'name' => '|string|max:255',
-            'type' => '|string|max:255',
-            'cost' => '|string|max:255',
+            'name' => 'nullable|string|max:255',
+            'type' => 'nullable|string|max:255',
+            'cost' => 'nullable|string|max:255',
             'avatar' => 'nullable|string|max:255',
-            'description' => '|string',
+            'description' => 'nullable|string',
+            'id_store' => 'nullable|exists:stores,id' // Validación para el campo id_store
         ]);
 
         $article->update($request->all());
 
-        return response()->json('Actualizado Correctamente');
+        return response()->json($article);
     }
 
     /**
@@ -97,5 +96,4 @@ class ArticleController extends Controller
         $article->delete();
         return response()->json(['message' => 'Eliminado Correctamente']);
     }
-
 }

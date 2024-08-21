@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -15,7 +14,10 @@ class ExchangeController extends Controller
      */
     public function index()
     {
-        $exchanges = Exchange::all();
+        $exchanges = Exchange::included() // Incluye relaciones según el parámetro 'included'
+                             ->filter()   // Aplica filtros según el parámetro 'filter'
+                             ->sort()     // Ordena los resultados según el parámetro 'sort'
+                             ->getOrPaginate(); // Pagina los resultados si se proporciona el parámetro 'perPage'
         return response()->json($exchanges);
     }
 
@@ -29,32 +31,26 @@ class ExchangeController extends Controller
     {
         $request->validate([
             'description' => 'required|string|max:255',
-            'id_children' => 'required|exists:childrens,id',
+            'id_children' => 'required|exists:children,id',
             'id_article' => 'required|exists:articles,id',
         ]);
 
         $exchange = Exchange::create($request->all());
 
-        return response()->json('Registrado con exito');
+        return response()->json($exchange, 201); // Retorna un código 201 (Creado)
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Exchange  $exchange
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $exchange = Exchange::find($id);
-
-        if (!$exchange) {
-            return response()->json(['message' => 'No hay tal registro'], 404);
-        }
-
+        $exchange = Exchange::included()->findOrFail($id); // Incluye relaciones según el parámetro 'included'
         return response()->json($exchange);
     }
-
 
     /**
      * Update the specified resource in storage.
@@ -67,13 +63,13 @@ class ExchangeController extends Controller
     {
         $request->validate([
             'description' => 'required|string|max:255',
-            'id_children' => 'required|exists:childrens,id',
+            'id_children' => 'required|exists:children,id',
             'id_article' => 'required|exists:articles,id',
         ]);
 
         $exchange->update($request->all());
 
-        return response()->json('Actualizado con exito');
+        return response()->json($exchange);
     }
 
     /**
@@ -85,13 +81,12 @@ class ExchangeController extends Controller
     public function destroy($id)
     {
         $exchange = Exchange::find($id);
-    
+
         if (!$exchange) {
-            return response()->json(['message' => 'No hay tal registro'], 404);
+            return response()->json(['message' => 'No existe ese registro'], 404);
         }
-    
+
         $exchange->delete();
         return response()->json(['message' => 'Eliminado Correctamente']);
     }
-    
 }
