@@ -101,3 +101,30 @@ Route::prefix('challenges')->group(function (){
     Route::put('/update/{challenge}',[ChallengeController::class,'update']);
     Route::delete('/destroy/{challenge}',[ChallengeController::class,'destroy']);
 });
+
+// // Rutas para StoreController
+// Route::prefix('stores')->group(function () {
+//     Route::get('/list', [StoreController::class, 'index']);
+//     Route::post('/create', [StoreController::class, 'store']);
+//     Route::get('/show/{id}', [StoreController::class, 'show']);
+//     Route::put('/update/{store}', [StoreController::class, 'update']);
+//     Route::delete('/delete/{store}', [StoreController::class, 'destroy']);
+// });
+
+// Rutas para ArticleController
+Route::prefix('articles')->group(function () {
+    Route::get('/list', [ArticleController::class, 'index']);
+    Route::post('/create', [ArticleController::class, 'store']);
+    Route::get('/show/{id}', [ArticleController::class, 'show']);
+    Route::put('/update/{article}', [ArticleController::class, 'update']);
+    Route::delete('/delete/{article}', [ArticleController::class, 'destroy']);
+});
+
+// Rutas para ExchangeController
+Route::prefix('exchanges')->group(function () {
+    Route::get('/list', [ExchangeController::class, 'index']);
+    Route::post('/create', [ExchangeController::class, 'store']);
+    Route::get('/show/{id}', [ExchangeController::class, 'show']);
+    Route::put('/update/{exchange}', [ExchangeController::class, 'update']);
+    Route::delete('/delete/{exchange}', [ExchangeController::class, 'destroy']);
+});

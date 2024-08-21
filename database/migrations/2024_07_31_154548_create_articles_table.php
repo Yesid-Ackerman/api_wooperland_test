@@ -11,7 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-   
+        Schema::create('articles', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('type');
+            $table->string('cost');
+            //Imagen o Foto de Perfil
+            $table->string('avatar')->nullable();
+            $table->string('description');
+
+            //ID de la tienda
+            // $table->foreignId('id_store')->references('id')->on('stores');
+
+            $table->timestamps();
+        });
     }
 
     /**

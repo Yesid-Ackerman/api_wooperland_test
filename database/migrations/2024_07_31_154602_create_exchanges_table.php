@@ -11,7 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-   
+        Schema::create('exchanges', function (Blueprint $table) {
+            $table->id();
+            $table->string('description');
+
+            //ID del niño
+            $table->foreignId('id_children')->references('id')->on('childrens');
+
+            //ID del articulo
+            $table->foreignId('id_article')->references('id')->on('articles');
+
+            $table->timestamps();
+        });
     }
 
     /**

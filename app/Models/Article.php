@@ -8,5 +8,16 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Article extends Model
 {
-  
+    protected $fillable = ['name', 'type', 'cost', 'avatar', 'description', 'id_store'];
+    protected $table = 'articles';
+
+    public function store()
+    {
+        return $this->belongsTo(Store::class, 'id_store');
+    }
+
+    public function exchanges()
+    {
+        return $this->hasMany(Exchange::class, 'id_article');
+    }
 }
