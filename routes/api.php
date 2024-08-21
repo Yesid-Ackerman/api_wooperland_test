@@ -4,7 +4,10 @@ use App\Http\Controllers\Api\ArticleController;
 use App\Http\Controllers\Api\ExchangeController;
 use App\Http\Controllers\Api\StoreController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Route; 
+use App\Http\Controllers\Api\ChildrenController;
+use App\Http\Controllers\Api\ReportController;
+use App\Http\Controllers\Api\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +23,27 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//crud user(father)
+Route::get('listUser', [UserController::class,'index'])->name('api.users.index');
+Route::post('createUser', [UserController::class,'store'])->name('api.users.store');
+Route::get('showUser/{user}', [UserController::class,'show'])->name('api.users.show');
+Route::put('updateUser/{user}', [UserController::class,'update'])->name('api.users.update');
+Route::delete('deleteUser/{user}', [UserController::class,'destroy'])->name('api.users.delete');
+
+//crud children
+Route::get('listChildren', [ChildrenController::class,'index'])->name('api.childrens.index');
+Route::post('createChildren', [ChildrenController::class,'store'])->name('api.childrens.store');
+Route::get('showChildren/{children}', [ChildrenController::class,'show'])->name('api.childrens.show');
+Route::put('updateChildren/{category}', [ChildrenController::class,'update'])->name('api.childrens.update');
+Route::delete('deleteChildren/{category}', [ChildrenController::class,'destroy'])->name('api.childrens.delete');
+
+//crud report
+Route::get('listReport', [ReportController::class,'index'])->name('api.reports.index');
+Route::post('createReport', [ReportController::class,'store'])->name('api.reports.store');
+Route::get('show/Report{report}', [ReportController::class,'show'])->name('api.reports.show');
+Route::put('updateReport/{report}', [ReportController::class,'update'])->name('api.reports.update');
+Route::delete('/report/delete/{report}', [ReportController::class,'destroy'])->name('api.reports.delete');
 
 // Rutas para StoreController
 Route::prefix('stores')->group(function () {

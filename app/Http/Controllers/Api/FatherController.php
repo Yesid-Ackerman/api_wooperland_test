@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Father;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class FatherController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $users=User::all();
-        return response()->json($users);
+        $fathers=Father::all();
+        return response()->json($fathers);
     }
 
     /**
@@ -34,9 +34,9 @@ class CategoryController extends Controller
 
         ]);
 
-        $user = user::create($request->all());
+        $father = Father::create($request->all());
 
-        return response()->json($user);
+        return response()->json($father);
     }
 
     /**
@@ -44,14 +44,14 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $user = User::included()->findOrFail($id);
-        return response()->json($user);
+        $father = Father::included()->findOrFail($id);
+        return response()->json($father);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit(Father $father)
     {
         //
     }
@@ -59,24 +59,24 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, Father $father)
     {
         $request->validate([
-            'name' => 'required|max:255' . $user->id,
+            'name' => 'required|max:255' . $father->id,
 
         ]);
 
-        $user->update($request->all());
+        $father->update($request->all());
 
-        return response()->json($user);
+        return response()->json($father);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(Father $father)
     {
-        $user->delete();
-        return response()->json($user);
+        $father->delete();
+        return response()->json($father);
     }
 }

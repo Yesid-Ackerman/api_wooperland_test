@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
 
-            $table->string('grhapic');
-            $table->string('score-level');
-            $table->string('level-more-use');
+            $table->string('grhapic')->nullable();
+            $table->string('score-level')->nullable();
+            $table->string('level-more-use')->nullable();
 
             //llave foranea nivel//
             $table->unsignedBigInteger('level_id')->nullable();
