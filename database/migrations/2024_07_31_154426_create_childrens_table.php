@@ -13,6 +13,17 @@ return new class extends Migration
     {
         Schema::create('childrens', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('lastname');
+            $table->string('age');
+            $table->string('nickname');
+            $table->string('relation')->nullable();
+            $table->string('avatar')->nullable();
+            $table->string('time_use')->nullable();
+
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+
             $table->timestamps();
         });
     }
