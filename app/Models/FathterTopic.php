@@ -7,5 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class FathterTopic extends Model
 {
-    use HasFactory;
+    use HasFactory;    
+
+    protected $fillable = ['father_id','topic_id'];
 }

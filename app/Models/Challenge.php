@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Challenge extends Model
 {
     use HasFactory;
+
+    public function Children(){
+        return $this->belongsTo(Children::class);
+    }
+
+    protected $fillable  = ['name','description','activity','prize','nivel','children_id'];
+
 }

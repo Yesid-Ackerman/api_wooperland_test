@@ -2,11 +2,14 @@
 
 use App\Http\Controllers\Api\AchievementController;
 use App\Http\Controllers\Api\ArticleController;
+use App\Http\Controllers\Api\ChallengeController;
 use App\Http\Controllers\Api\ChildrenImageController;
 use App\Http\Controllers\Api\ExchangeController;
 use App\Http\Controllers\Api\StoreController;
 use App\Http\Controllers\Api\TopicController;
 use App\Http\Controllers\Api\ChildrenController;
+use App\Http\Controllers\Api\FathterTopicController;
+use App\Http\Controllers\Api\LevelController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
@@ -74,3 +77,27 @@ Route::post('createReport', [ReportController::class,'store'])->name('api.report
 Route::get('show/Report{report}', [ReportController::class,'show'])->name('api.reports.show');
 Route::put('updateReport/{report}', [ReportController::class,'update'])->name('api.reports.update');
 Route::delete('/report/delete/{report}', [ReportController::class,'destroy'])->name('api.reports.delete');
+
+Route::prefix('levels')->group(function (){
+    Route::get('/index',[LevelController::class, 'index']);
+    Route::post('/store',[LevelController::class, 'store']);
+    Route::get('/show/{id}',[LevelController::class,'show']);
+    Route::put('/update/{level}',[LevelController::class,'update']);
+    Route::delete('/destroy/{level}',[LevelController::class,'destroy']);
+});
+    
+Route::prefix('fathertopics')->group(function (){
+    Route::get('/index',[FathterTopicController::class, 'index']);
+    Route::post('/store',[FathterTopicController::class, 'store']);
+    Route::get('/show/{id}',[FathterTopicController::class,'show']);
+    Route::put('/update/{fathertopic}',[FathterTopicController::class,'update']);
+    Route::delete('/destroy/{fathertopic}',[FathterTopicController::class,'destroy']);
+});
+    
+Route::prefix('challenges')->group(function (){
+    Route::get('/index',[ChallengeController::class, 'index']);
+    Route::post('/store',[ChallengeController::class, 'store']);
+    Route::get('/show/{id}',[ChallengeController::class,'show']);
+    Route::put('/update/{challenge}',[ChallengeController::class,'update']);
+    Route::delete('/destroy/{challenge}',[ChallengeController::class,'destroy']);
+});
