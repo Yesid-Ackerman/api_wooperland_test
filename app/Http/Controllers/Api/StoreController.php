@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 class StoreController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra una lista de recursos.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -18,14 +18,15 @@ class StoreController extends Controller
                        ->filter()   // Aplica filtros según el parámetro 'filter'
                        ->sort()     // Ordena los resultados según el parámetro 'sort'
                        ->getOrPaginate(); // Pagina los resultados si se proporciona el parámetro 'perPage'
+                       
         return response()->json($stores);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacena un recurso recién creado en almacenamiento.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -39,23 +40,24 @@ class StoreController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra el recurso especificado.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
         $store = Store::included()->findOrFail($id); // Incluye relaciones según el parámetro 'included'
+        
         return response()->json($store);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza el recurso especificado en almacenamiento.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Store  $store
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Store $store)
     {
@@ -63,20 +65,21 @@ class StoreController extends Controller
             'name' => 'nullable|string|max:255',
         ]);
 
-        $store->update($request->only(['name']));
+        $store->update($request->only(['name'])); // Solo actualiza el campo 'name'
 
         return response()->json($store);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina el recurso especificado del almacenamiento.
      *
      * @param  \App\Models\Store  $store
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Store $store)
     {
         $store->delete();
+        
         return response()->json(['message' => 'Eliminado Correctamente']);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -35,12 +36,12 @@ class ArticleController extends Controller
             'cost' => 'required|string|max:255',
             'avatar' => 'nullable|string|max:255',
             'description' => 'required|string',
-            'id_store' => 'required|exists:stores,id' // Validación para el campo id_store
+            'id_store' => 'required|exists:stores,id', // Validación adicional para la relación con stores
         ]);
 
         $article = Article::create($request->all());
 
-        return response()->json($article, 201);
+        return response()->json($article, 201); // Devuelve el artículo creado y un código 201 (Created)
     }
 
     /**
@@ -51,8 +52,7 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        $article = Article::included()->findOrFail($id); // Incluye relaciones según el parámetro 'included'
-
+        $article = Article::included()->findOrFail($id);
         return response()->json($article);
     }
 
@@ -66,17 +66,17 @@ class ArticleController extends Controller
     public function update(Request $request, Article $article)
     {
         $request->validate([
-            'name' => 'nullable|string|max:255',
-            'type' => 'nullable|string|max:255',
-            'cost' => 'nullable|string|max:255',
+            'name' => 'sometimes|string|max:255',
+            'type' => 'sometimes|string|max:255',
+            'cost' => 'sometimes|string|max:255',
             'avatar' => 'nullable|string|max:255',
-            'description' => 'nullable|string',
-            'id_store' => 'nullable|exists:stores,id' // Validación para el campo id_store
+            'description' => 'sometimes|string',
+            'id_store' => 'sometimes|exists:stores,id', // Validación para la relación con stores
         ]);
 
         $article->update($request->all());
 
-        return response()->json($article);
+        return response()->json($article); // Devuelve el artículo actualizado
     }
 
     /**
@@ -85,14 +85,8 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Article $article)
     {
-        $article = Article::find($id);
-
-        if (!$article) {
-            return response()->json(['message' => 'No existe ese registro'], 404);
-        }
-
         $article->delete();
         return response()->json(['message' => 'Eliminado Correctamente']);
     }

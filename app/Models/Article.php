@@ -15,12 +15,12 @@ class Article extends Model
     protected $allowFilter = ['id', 'name', 'type', 'cost']; // Campos permitidos para filtrado
     protected $allowSort = ['id', 'name', 'type', 'cost']; // Campos permitidos para ordenamiento
 
-    public function store()
+    public function store(): BelongsTo
     {
         return $this->belongsTo(Store::class, 'id_store');
     }
 
-    public function exchanges()
+    public function exchanges(): HasMany
     {
         return $this->hasMany(Exchange::class, 'id_article');
     }
@@ -74,7 +74,7 @@ class Article extends Model
         foreach ($sortFields as $sortField) {
             $direction = 'asc';
 
-            if (substr($sortField, 0, 1) == '-') {
+            if (substr($sortField, 0, 1) === '-') {
                 $direction = 'desc';
                 $sortField = substr($sortField, 1);
             }

@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 class ExchangeController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra una lista de recursos.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -18,14 +18,15 @@ class ExchangeController extends Controller
                              ->filter()   // Aplica filtros según el parámetro 'filter'
                              ->sort()     // Ordena los resultados según el parámetro 'sort'
                              ->getOrPaginate(); // Pagina los resultados si se proporciona el parámetro 'perPage'
+                             
         return response()->json($exchanges);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacena un recurso recién creado en almacenamiento.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -41,23 +42,24 @@ class ExchangeController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra el recurso especificado.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
         $exchange = Exchange::included()->findOrFail($id); // Incluye relaciones según el parámetro 'included'
+        
         return response()->json($exchange);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza el recurso especificado en almacenamiento.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Exchange  $exchange
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Exchange $exchange)
     {
@@ -73,10 +75,10 @@ class ExchangeController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina el recurso especificado del almacenamiento.
      *
-     * @param  \App\Models\Exchange  $exchange
-     * @return \Illuminate\Http\Response
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
@@ -87,6 +89,7 @@ class ExchangeController extends Controller
         }
 
         $exchange->delete();
+        
         return response()->json(['message' => 'Eliminado Correctamente']);
     }
 }

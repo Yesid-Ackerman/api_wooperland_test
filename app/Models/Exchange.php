@@ -11,24 +11,29 @@ class Exchange extends Model
     protected $fillable = ['description', 'id_children', 'id_article'];
     protected $table = 'exchanges';
 
-    protected $allowIncluded = ['article', 'children']; // Relaciones permitidas para inclusión
-    protected $allowFilter = ['id', 'description']; // Campos permitidos para filtrado
-    protected $allowSort = ['id', 'description']; // Campos permitidos para ordenamiento
+    // Relaciones permitidas para inclusión
+    protected $allowIncluded = ['article', 'children']; 
+    // Campos permitidos para filtrado
+    protected $allowFilter = ['id', 'description']; 
+    // Campos permitidos para ordenamiento
+    protected $allowSort = ['id', 'description']; 
 
-    public function article()
+    // Relación con el modelo Article
+    public function article(): BelongsTo
     {
         return $this->belongsTo(Article::class, 'id_article');
     }
 
-    public function children()
+    // Relación con el modelo Children
+    public function children(): BelongsTo
     {
         return $this->belongsTo(Children::class, 'id_children');
     }
 
     // Scope para incluir relaciones
-    public function scopeIncluded(Builder $query)
+    public function scopeIncluded(Builder $query): void
     {
-        if (empty($this->allowIncluded) || empty(request('included'))) {
+        if (empty($this->allowIncluded) || !request()->has('included')) {
             return;
         }
 
@@ -45,9 +50,9 @@ class Exchange extends Model
     }
 
     // Scope para filtrar resultados
-    public function scopeFilter(Builder $query)
+    public function scopeFilter(Builder $query): void
     {
-        if (empty($this->allowFilter) || empty(request('filter'))) {
+        if (empty($this->allowFilter) || !request()->has('filter')) {
             return;
         }
 
@@ -62,9 +67,9 @@ class Exchange extends Model
     }
 
     // Scope para ordenar resultados
-    public function scopeSort(Builder $query)
+    public function scopeSort(Builder $query): void
     {
-        if (empty($this->allowSort) || empty(request('sort'))) {
+        if (empty($this->allowSort) || !request()->has('sort')) {
             return;
         }
 
@@ -74,7 +79,7 @@ class Exchange extends Model
         foreach ($sortFields as $sortField) {
             $direction = 'asc';
 
-            if (substr($sortField, 0, 1) == '-') {
+            if (substr($sortField, 0, 1) === '-') {
                 $direction = 'desc';
                 $sortField = substr($sortField, 1);
             }
@@ -88,8 +93,8 @@ class Exchange extends Model
     // Scope para obtener o paginar resultados
     public function scopeGetOrPaginate(Builder $query)
     {
-        if (request('perPage')) {
-            $perPage = intval(request('perPage'));
+        if ($perPage = request('perPage')) {
+            $perPage = intval($perPage);
 
             if ($perPage) {
                 return $query->paginate($perPage);

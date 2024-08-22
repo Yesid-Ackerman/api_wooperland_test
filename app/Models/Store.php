@@ -15,51 +15,69 @@ class Store extends Model
         return $this->hasMany(Article::class, 'id_store');
     }
 
-    // Scopes para inclusión de relaciones
+    /**
+     * Scope para incluir relaciones según el parámetro 'included'.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return void
+     */
     public function scopeIncluded(Builder $query)
     {
-        if (empty(request('included'))) {
+        $relations = request('included');
+
+        if (empty($relations)) {
             return;
         }
 
-        $relations = explode(',', request('included'));
-        $allowIncluded = collect(['articles']); // Aquí puedes añadir más relaciones permitidas
+        $relations = explode(',', $relations);
+        $allowIncluded = ['articles']; // Relaciones permitidas para inclusión
 
-        foreach ($relations as $key => $relationship) {
-            if (!$allowIncluded->contains($relationship)) {
-                unset($relations[$key]);
-            }
-        }
+        $validRelations = array_filter($relations, function($relation) use ($allowIncluded) {
+            return in_array($relation, $allowIncluded);
+        });
 
-        $query->with($relations);
+        $query->with($validRelations);
     }
 
-    // Scope para filtrado de resultados
+    /**
+     * Scope para filtrar resultados según el parámetro 'filter'.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return void
+     */
     public function scopeFilter(Builder $query)
     {
-        if (empty(request('filter'))) {
+        $filters = request('filter');
+
+        if (empty($filters)) {
             return;
         }
 
-        $filters = request('filter');
-        $allowFilter = collect(['name']); // Aquí puedes añadir más campos permitidos para el filtrado
+        $allowFilter = ['name']; // Campos permitidos para filtrado
 
         foreach ($filters as $filter => $value) {
-            if ($allowFilter->contains($filter)) {
+            if (in_array($filter, $allowFilter)) {
                 $query->where($filter, 'LIKE', '%' . $value . '%');
             }
         }
     }
 
-    // Scope para ordenamiento de resultados
+    /**
+     * Scope para ordenar resultados según el parámetro 'sort'.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return void
+     */
     public function scopeSort(Builder $query)
     {
-        if (empty(request('sort'))) {
+        $sortFields = request('sort');
+
+        if (empty($sortFields)) {
             return;
         }
 
-        $sortFields = explode(',', request('sort'));
-        $allowSort = collect(['id', 'name']); // Aquí puedes añadir más campos permitidos para el ordenamiento
+        $sortFields = explode(',', $sortFields);
+        $allowSort = ['id', 'name']; // Campos permitidos para ordenamiento
 
         foreach ($sortFields as $sortField) {
             $direction = 'asc';
@@ -69,19 +87,25 @@ class Store extends Model
                 $sortField = substr($sortField, 1);
             }
 
-            if ($allowSort->contains($sortField)) {
+            if (in_array($sortField, $allowSort)) {
                 $query->orderBy($sortField, $direction);
             }
         }
     }
 
-    // Scope para paginación o recuperación de registros
+    /**
+     * Scope para obtener o paginar resultados según el parámetro 'perPage'.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Pagination\LengthAwarePaginator
+     */
     public function scopeGetOrPaginate(Builder $query)
     {
-        if (request('perPage')) {
-            $perPage = intval(request('perPage'));
+        $perPage = request('perPage');
 
-            if ($perPage) {
+        if ($perPage) {
+            $perPage = intval($perPage);
+            if ($perPage > 0) {
                 return $query->paginate($perPage);
             }
         }
