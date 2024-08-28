@@ -13,8 +13,11 @@ class FathterTopicController extends Controller
     public function index()
     {
         $fathertopic = FathterTopic::all();
+        $fathertopic = FathterTopic::included()->get();
         return response()->json([$fathertopic]);
     }
+
+    
 
     /**
      * Store a newly created resource in storage.

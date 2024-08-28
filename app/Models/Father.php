@@ -12,4 +12,6 @@ class Father extends Model
     public function Topics(){
         return $this->belongsToMany(Topic::class);
     }
+
+
 }

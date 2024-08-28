@@ -11,4 +11,8 @@ class Topic extends Model
     public function Fathers (){
         return $this->belongsToMany(Father::class);
     }
+
+    public function levels (){
+        return $this->hasMany(Level::class);
+    }
 }

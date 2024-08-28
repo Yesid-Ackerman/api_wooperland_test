@@ -14,12 +14,14 @@ class LevelController extends Controller
     public function index()
     {
         $level = Level::all();
+        $level = level::included()->get();
         return response()->json($level);
     }
 
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(Request $request)
     {
         $request->validate([
