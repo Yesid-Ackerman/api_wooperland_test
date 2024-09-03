@@ -14,6 +14,9 @@ class Children extends Model
         return $this->belongsTo('App/Models/User');
     }
 
+    public function Achievements(){
+        return $this->hasMany('App\Models\Achievement');
+    }
   /**
      * The attributes that are mass assignable.
      *

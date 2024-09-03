@@ -10,7 +10,7 @@ class ChildrenImageController extends Controller
     * Display a listing of the resource.
     */
    public function index(){
-       $childrenimage = ChildrenImage::all();
+       $childrenimage = ChildrenImage::included()->get();
        return response()->json($childrenimage);
    }
    /**

@@ -11,7 +11,7 @@ class AchievementController extends Controller
      * Display a listing of the resource.
      */
     public function index(){
-        $achievement = Achievement::all();
+        $achievement=Achievement::included()->get();
         return response()->json($achievement);
     }
     /**
