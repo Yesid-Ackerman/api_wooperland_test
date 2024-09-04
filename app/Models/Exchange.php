@@ -30,6 +30,11 @@ class Exchange extends Model
         return $this->belongsTo(Children::class, 'id_children');
     }
 
+    // Relacion con el modelo Children_Image (HAIVER)
+    public function ChildrenImages (){
+        return $this->hasMany('App\Models\ChildrenImage');
+    }
+
     // Scope para incluir relaciones
     public function scopeIncluded(Builder $query): void
     {
