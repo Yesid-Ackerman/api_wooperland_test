@@ -14,7 +14,7 @@ class ChildrenController extends Controller
      */
     public function index()
     {
-        $childrens=Children::all();
+        $childrens=Children::include();
         return response()->json($childrens);
     }
 
