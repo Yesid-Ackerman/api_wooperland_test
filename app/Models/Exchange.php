@@ -12,7 +12,7 @@ class Exchange extends Model
     protected $table = 'exchanges';
 
     // Relaciones permitidas para inclusión
-    protected $allowIncluded = ['article', 'children']; 
+    protected $allowIncluded = ['article', 'children']; //añadir mas relaciones (children.user) 
     // Campos permitidos para filtrado
     protected $allowFilter = ['id', 'description']; 
     // Campos permitidos para ordenamiento

@@ -60,30 +60,30 @@ Route::prefix('topic')->group(function () {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //crud user(father)                                                                                                    
 Route::prefix('users')->group(function () {                                                        
-    Route::get('list', [UserController::class, 'index'])->name('index');                                               
-    Route::post('create', [UserController::class, 'store'])->name('store');                                            
-    Route::get('show/{user}', [UserController::class, 'show'])->name('show');                                          
-    Route::put('update/{user}', [UserController::class, 'update'])->name('update');                                    
-    Route::delete('delete/{user}', [UserController::class, 'destroy'])->name('delete');                                
+    Route::get('list', [UserController::class, 'index']);                                               
+    Route::post('create', [UserController::class, 'store']);                                            
+    Route::get('show/{user}', [UserController::class, 'show']);                                          
+    Route::put('update/{user}', [UserController::class, 'update']);                                    
+    Route::delete('delete/{user}', [UserController::class, 'destroy']);                                
 });                                                                                                                    
                                                                                                                        
-//crud children                                                                                                        
-Route::prefix('childrens')->group(function () {                                                
-    Route::get('list', [ChildrenController::class, 'index'])->name('index');                                           
-    Route::post('create', [ChildrenController::class, 'store'])->name('store');                                        
-    Route::get('show/{children}', [ChildrenController::class, 'show'])->name('show');                                  
-    Route::put('update/{children}', [ChildrenController::class, 'update'])->name('update');                            
-    Route::delete('delete/{children}', [ChildrenController::class, 'destroy'])->name('delete');                        
-});                                                                                                                    
+// CRUD children
+Route::prefix('children')->group(function () {                                                
+    Route::get('/index', [ChildrenController::class, 'index'])->name('children.index');                                           
+    Route::post('/store', [ChildrenController::class, 'store'])->name('children.store');                                        
+    Route::get('/show/{children}', [ChildrenController::class, 'show'])->name('children.show');                                  
+    Route::put('/update/{children}', [ChildrenController::class, 'update'])->name('children.update');                            
+    Route::delete('/destroy/{children}', [ChildrenController::class, 'destroy'])->name('children.destroy'); 
+});                                                                                                                  
                                                                                                                        
-//crud report                                                                                                          
+// CRUD report
 Route::prefix('reports')->group(function () {                                                   
-    Route::get('list', [ReportController::class, 'index'])->name('index');                                             
-    Route::post('create', [ReportController::class, 'store'])->name('store');                                          
-    Route::get('show/{report}', [ReportController::class, 'show'])->name('show');                                      
-    Route::put('update/{report}', [ReportController::class, 'update'])->name('update');                                
-    Route::delete('delete/{report}', [ReportController::class, 'destroy'])->name('delete');                            
-});                                                                                                                    
+    Route::get('/list', [ReportController::class, 'index'])->name('reports.index');                                             
+    Route::post('/create', [ReportController::class, 'store'])->name('reports.store');                                          
+    Route::get('/show/{report}', [ReportController::class, 'show'])->name('reports.show');                                      
+    Route::put('/update/{report}', [ReportController::class, 'update'])->name('reports.update');                                
+    Route::delete('/delete/{report}', [ReportController::class, 'destroy'])->name('reports.destroy');  
+});                                                                                                                  
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::prefix('levels')->group(function (){

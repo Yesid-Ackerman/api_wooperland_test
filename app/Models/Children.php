@@ -15,8 +15,8 @@ class Children extends Model
         return $this->belongsTo('App/Models/User');
     }
 
-    public function Achievements(){
-        return $this->hasMany('App\Models\Achievement');
+    public function achievements(){
+        return $this->hasMany('App/Models/Achievement');
     }
   /**
      * The attributes that are mass assignable.
@@ -31,33 +31,29 @@ class Children extends Model
         'user_id',
     ];
 
-    protected $allowIncluded = ['reports', 'reports.user']; //las posibles Querys que se pueden realizar
+    protected $allowIncluded = ['user', 'users.reports']; //las posibles Querys que se pueden realizar
 
      
     /////////////////////////////////////////////////////////////////////////////
     public function scopeIncluded(Builder $query)
     {
        
-        if(empty($this->allowIncluded)||empty(request('included'))){// validamos que la lista blanca y la variable included enviada a travez de HTTP no este en vacia.
+        if(empty($this->allowIncluded)||empty(request('included'))){
             return;
         }
 
         
-        $relations = explode(',', request('included')); //['posts','relation2']//recuperamos el valor de la variable included y separa sus valores por una coma
+        $relations = explode(',', request('included')); 
+        $allowIncluded = collect($this->allowIncluded); 
 
-        return $relations;
-
-        $allowIncluded = collect($this->allowIncluded); //colocamos en una colecion lo que tiene $allowIncluded en este caso = ['posts','posts.user']
-
-        foreach ($relations as $key => $relationship) { //recorremos el array de relaciones
+        foreach ($relations as $key => $relationship) { 
 
             if (!$allowIncluded->contains($relationship)) {
                 unset($relations[$key]);
             }
         }
-        $query->with($relations); //se ejecuta el query con lo que tiene $relations en ultimas es el valor en la url de included
+        $query->with($relations); 
 
-        //http://api.codersfree1.test/v1/categories?included=posts
 
 
     }

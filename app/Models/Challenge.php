@@ -9,7 +9,7 @@ class Challenge extends Model
 {
     use HasFactory;
 
-    public function Children(){
+    public function children(){
         return $this->belongsTo(Children::class);
     }
 

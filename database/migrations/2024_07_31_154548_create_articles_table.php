@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('description');
 
             //ID de la tienda
-            // $table->foreignId('id_store')->references('id')->on('stores');
+            $table->foreignId('id_store')->references('id')->on('stores');
 
             $table->timestamps();
         });

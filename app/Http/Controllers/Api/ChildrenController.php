@@ -14,8 +14,14 @@ class ChildrenController extends Controller
      */
     public function index()
     {
-        $childrens=Children::include();
-        return response()->json($childrens);
+        //$childrens=Children::include();
+        //return response()->json($childrens);
+
+        $children = Children::query()
+        ->included() 
+        ->get();
+
+    return response()->json($children);
     }
 
     /**
@@ -49,7 +55,7 @@ class ChildrenController extends Controller
      */
     public function show($id)
     {
-        $children = Children::findOrFail($id);
+        $children = Children::include()->indOrFail($id);
         return response()->json($children);
     }
 
@@ -86,6 +92,6 @@ class ChildrenController extends Controller
     public function destroy(Children $children)
     {
         $children->delete();
-        return response()->json($children);
+        return response()->json(['message' => 'Eliminado Correctamente']);
     }
 }

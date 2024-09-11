@@ -14,8 +14,14 @@ class ReportController extends Controller
      */
     public function index()
     {
-        $reports=Report::all();
-        return response()->json($reports);
+        //$reports=Report::all();
+        //return response()->json($reports);
+
+        $report = Report::query()
+        ->included() // Aplica el scopeIncluded
+        ->get();
+
+    return response()->json($report);
     }
 
     /**
